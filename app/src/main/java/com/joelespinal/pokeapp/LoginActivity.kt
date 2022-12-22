@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 
 class LoginActivity : AppCompatActivity(){
 
@@ -32,6 +33,12 @@ class LoginActivity : AppCompatActivity(){
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
+
+        googleLoginButton = findViewById(R.id.google_login_button)
+        googleLoginButton.setOnClickListener {
+            val intent = Intent(this, com.joelespinal.pokeapp.PokeActivity::class.java);
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {
@@ -60,8 +67,9 @@ class LoginActivity : AppCompatActivity(){
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null){
-
             Toast.makeText(this, "UID: ${user.uid}", Toast.LENGTH_LONG).show();
+            val intent = Intent("com.joelespinal.pokeapp.LoginActivity");
+            startActivity(intent)
         } else {
             Toast.makeText(this, "UID: DONT FOUND", Toast.LENGTH_LONG).show();
             signIn()
