@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun signIn() {
-        val intent = Intent("com.joelespinal.pokeapp.LoginActivity");
-        startActivityForResult(intent, MainActivity.RC_SIGN_IN)
-    }
-
     companion object {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
