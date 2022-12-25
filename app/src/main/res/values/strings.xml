@@ -13,4 +13,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="regions">Regiones</string>
+    <string name="pokemon_regions">Pokemons</string>
+    <string name="region">Region</string>
 </resources>
