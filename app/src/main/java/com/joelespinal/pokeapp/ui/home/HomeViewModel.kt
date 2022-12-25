@@ -7,17 +7,30 @@ import androidx.lifecycle.viewModelScope
 import com.joelespinal.pokeapp.PokeRepository
 import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
+import me.sargunvohra.lib.pokekotlin.model.Pokemon
+import me.sargunvohra.lib.pokekotlin.model.Region
 
 class HomeViewModel : ViewModel() {
-
     private val pokeRepository = PokeRepository(PokeApiClient())
-    private val _regionsName = MutableLiveData<List<String>>()
 
-    val regionsName: LiveData<List<String>> = _regionsName
+    private val _regions = MutableLiveData<List<Region>>()
+    val regions: LiveData<List<Region>> = _regions
+
+    private val _pokemons = MutableLiveData<List<Pokemon>>()
+    val pokemons: LiveData<List<Pokemon>> = _pokemons
+
+
 
     fun getRegionNames() {
         viewModelScope.launch {
-            _regionsName.postValue(pokeRepository.getRegions())
+            _regions.postValue(pokeRepository.getRegions())
+        }
+    }
+
+    fun getPokemonsByRegion(regionId: Int) {
+        viewModelScope.launch {
+            pokeRepository.pokemonByRegion(regionId, 0)
+            _pokemons.postValue(pokeRepository.pokemons.value)
         }
     }
 }
