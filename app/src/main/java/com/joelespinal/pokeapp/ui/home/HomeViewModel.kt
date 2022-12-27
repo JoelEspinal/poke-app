@@ -19,7 +19,8 @@ class HomeViewModel : ViewModel() {
     private val _pokemons = MutableLiveData<List<Pokemon>>()
     val pokemons: LiveData<List<Pokemon>> = _pokemons
 
-
+    val _pokemonsLength = MutableLiveData<Int>()
+    val pokemonsLength = _pokemonsLength
 
     fun getRegionNames() {
         viewModelScope.launch {
@@ -27,9 +28,10 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getPokemonsByRegion(regionId: Int) {
+    fun getPokemonsByRegion(regionId: Int, fromIndex: Int) {
         viewModelScope.launch {
-            pokeRepository.pokemonByRegion(regionId, 0)
+            pokeRepository.pokemonsByRegion(regionId, fromIndex)
+            _pokemonsLength.postValue(pokeRepository.entriesLength.value)
             _pokemons.postValue(pokeRepository.pokemons.value)
         }
     }
