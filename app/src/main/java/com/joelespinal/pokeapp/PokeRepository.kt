@@ -12,7 +12,8 @@ class PokeRepository(private val pokeClient: PokeApiClient) {
     private val _pokemons = MutableLiveData<List<Pokemon>>()
     val pokemons: LiveData<List<Pokemon>> = _pokemons
 
-    var toIndex = 20
+    private val _entriesLength = MutableLiveData<Int>()
+    val entriesLength : LiveData<Int> = _entriesLength
 
     fun getRegionsNamedList(): List<NamedApiResource>{
         val regionNamedList = pokeClient.getRegionList(0, 20)
@@ -31,34 +32,37 @@ class PokeRepository(private val pokeClient: PokeApiClient) {
         }
     }
 
-    suspend fun pokemonByRegion(regionId: Int, fromIndex: Int): Int {
+    suspend fun pokemonsByRegion(regionId: Int, fromIndex: Int) {
         return withContext(Dispatchers.IO) {
             val region = pokeClient.getRegion(regionId)
             for (pokedexResource in region.pokedexes) {
                 val pokedex = pokeClient.getPokedex(pokedexResource.id)
-                val entries = abadacadabra(pokedex.pokemonEntries, fromIndex, toIndex)
+                val pokemons = mutableListOf<Pokemon>()
 
+                val pokemonEntries = pokedex.pokemonEntries
+                _entriesLength.postValue(pokemonEntries.size - 1)
+
+                val entries = subEntries(pokemonEntries, fromIndex, (fromIndex + 15))
                 for (entry in entries) {
                     val specie = pokeClient.getPokemonSpecies(entry.pokemonSpecies.id)
-                    val pokemons = mutableListOf<Pokemon>()
                     for (variety in specie.varieties) {
                         val pokemon = pokeClient.getPokemon(variety.pokemon.id)
                         pokemons.add(pokemon)
                     }
+
                     _pokemons.postValue(pokemons)
                 }
             }
-            return@withContext toIndex
         }
     }
 
-    suspend fun abadacadabra(entries: List<PokemonEntry>, fromIndex: Int, toIndex: Int):  List<PokemonEntry> {
+    suspend fun subEntries(entries: List<PokemonEntry>, fromIndex: Int, toIndex: Int):  List<PokemonEntry> {
         val length = entries.size - 1
         val workerList: List<PokemonEntry>
         val slice = toIndex - fromIndex
 
-        workerList = if (slice <= length) {
-            entries.subList(fromIndex, toIndex)
+        workerList = if ((fromIndex + slice) <= length) {
+            entries.subList(fromIndex, (fromIndex + slice))
         } else {
             entries.subList(fromIndex, length)
         }
