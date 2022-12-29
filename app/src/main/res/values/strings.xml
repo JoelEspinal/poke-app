@@ -17,4 +17,5 @@
     <string name="regions">Regiones</string>
     <string name="pokemon_regions">Pokemons</string>
     <string name="region">Region</string>
+    <string name="create_button">Crear</string>
 </resources>
