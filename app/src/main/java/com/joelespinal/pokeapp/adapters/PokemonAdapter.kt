@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,17 +22,18 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
             return PokemonViewHolder.create(parent, homeViewModel)
         }
 
-        override fun onBindViewHolder(holder: PokemonAdapter.PokemonViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
             val currentCategory = getItem(position)
             holder.bind(context, currentCategory, homeViewModel)
 
         }
 
-        class PokemonViewHolder(itemView: View, viewModel: HomeViewModel) :
+        class PokemonViewHolder(itemView: View, pokmeonViewModel: HomeViewModel) :
             RecyclerView.ViewHolder(itemView) {
             private val pokemonImageView: ImageView = itemView.findViewById(R.id.pokemon_item_image)
             private val pokemonName: TextView = itemView.findViewById(R.id.pokemon_item_title)
             private val card: CardView = itemView.findViewById(R.id.card)
+            private var itemSelected = false
 
             fun bind(context: Context, pokemon: Pokemon?, homeViewModel: HomeViewModel) {
                 pokemonImageView.setImageResource(R.mipmap.ic_launcher_round)
@@ -40,7 +42,23 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
                     .into(pokemonImageView)
                 pokemonName.text = pokemon?.name
 
-                // TODO Redirect to category selected fragment acording to user click
+                card.setOnLongClickListener {
+                    itemSelected = if (itemSelected) {
+                        pokemon.let {
+                            homeViewModel.deselectPokemon(it!!)
+                            pokemonImageView.setBackgroundColor(R.color.white)
+                        }
+                        false
+                    } else {
+                        pokemon.let{
+                            homeViewModel.selectPokemon(it!!)
+                            pokemonImageView.setBackgroundColor(R.color.teal_700)
+                        }
+                        true
+                    }
+
+                    true
+                }
             }
 
             companion object {
