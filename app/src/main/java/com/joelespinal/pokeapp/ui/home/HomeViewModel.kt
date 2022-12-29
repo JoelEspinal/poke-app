@@ -1,10 +1,9 @@
 package com.joelespinal.pokeapp.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.joelespinal.pokeapp.PokeRepository
+import com.joelespinal.pokeapp.models.Team
 import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import me.sargunvohra.lib.pokekotlin.model.Pokemon
@@ -19,8 +18,13 @@ class HomeViewModel : ViewModel() {
     private val _pokemons = MutableLiveData<List<Pokemon>>()
     val pokemons: LiveData<List<Pokemon>> = _pokemons
 
-    val _pokemonsLength = MutableLiveData<Int>()
-    val pokemonsLength = _pokemonsLength
+     private val cachedPokemon = mutableListOf<Pokemon>()
+    private val _selectedPokemoms = MutableLiveData<List<Pokemon>>(cachedPokemon)
+    val selectedPokemoms : LiveData<List<Pokemon>> = _selectedPokemoms
+
+    lateinit var selectedRegion: Region
+
+//    var currentTeam = Team(0, null, mutableListOf<Pokemon>())
 
     fun getRegionNames() {
         viewModelScope.launch {
@@ -31,8 +35,17 @@ class HomeViewModel : ViewModel() {
     fun getPokemonsByRegion(regionId: Int, fromIndex: Int) {
         viewModelScope.launch {
             pokeRepository.pokemonsByRegion(regionId, fromIndex)
-            _pokemonsLength.postValue(pokeRepository.entriesLength.value)
             _pokemons.postValue(pokeRepository.pokemons.value)
         }
+    }
+
+    fun selectPokemon(pokemon : Pokemon) {
+        cachedPokemon.add(pokemon)
+        _selectedPokemoms.postValue(cachedPokemon)
+    }
+
+    fun deselectPokemon(pokemon : Pokemon) {
+        cachedPokemon.removeIf { pokemon.id == it.id }
+        _selectedPokemoms.postValue(cachedPokemon)
     }
 }
