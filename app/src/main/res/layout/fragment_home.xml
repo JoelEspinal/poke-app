@@ -43,7 +43,16 @@
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/pikachu"/>
 
+    </FrameLayout>
     <Spinner
         android:id="@+id/categories_spinner"
         android:layout_width="410dp"

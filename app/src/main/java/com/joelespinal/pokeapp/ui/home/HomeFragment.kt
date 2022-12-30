@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -36,6 +37,7 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
     private lateinit var regionsLiveData: LiveData<List<Region>>
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var selectedPokemonsCount: TextView
+    private lateinit var placeholder: FrameLayout
     private lateinit var createTeamButton: FloatingActionButton
     private lateinit var pokemonAdapter: PokemonAdapter
 
@@ -62,6 +64,7 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
         swipeContainer = view.findViewById(R.id.container)
         selectedPokemonsCount = view.findViewById(R.id.selected_pokemons_count)
         createTeamButton = view.findViewById(R.id.create_team_button)
+        placeholder = view.findViewById(R.id.placeholder)
 
         initAdapter()
         initRecycleView(view)
@@ -87,10 +90,6 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
             regionsLiveData.observe(viewLifecycleOwner) { regions ->
                 regionsAdapter.addAll(regions.map { it.name })
                 categoriesSpinner.isEnabled = regions.isNotEmpty()
-//                if (regions.isNotEmpty()){
-//                    categoriesSpinner.setSelection(0)
-//                }
-
                 categoriesSpinner.adapter = regionsAdapter
                 categoriesSpinner.onItemSelectedListener = this
             }
@@ -109,6 +108,11 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
             activity?.let { activity ->
                 homeViewModel.pokemons.observe(activity) { pokemons ->
                     pokemonAdapter.submitList(pokemons)
+                    if (pokemons.isEmpty()) {
+                        placeholder.visibility = View.VISIBLE
+                    } else {
+                        placeholder.visibility = View.INVISIBLE
+                    }
                 }
             }
 
