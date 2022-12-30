@@ -9,6 +9,8 @@ import me.sargunvohra.lib.pokekotlin.model.*
 
 class PokeRepository(private val pokeClient: PokeApiClient) {
 
+    private var selectedRegion = 0
+    private var pokemonsList = mutableListOf<Pokemon>()
     private val _pokemons = MutableLiveData<List<Pokemon>>()
     val pokemons: LiveData<List<Pokemon>> = _pokemons
 
@@ -33,12 +35,17 @@ class PokeRepository(private val pokeClient: PokeApiClient) {
     }
 
     suspend fun pokemonsByRegion(regionId: Int, fromIndex: Int) {
+        if (selectedRegion != regionId && selectedRegion > 0) {
+            pokemonsList = mutableListOf()
+            _pokemons.postValue(pokemonsList)
+        }
+
+        selectedRegion = regionId
+
         return withContext(Dispatchers.IO) {
-            val region = pokeClient.getRegion(regionId)
+            val region = pokeClient.getRegion(selectedRegion)
             for (pokedexResource in region.pokedexes) {
                 val pokedex = pokeClient.getPokedex(pokedexResource.id)
-                val pokemons = mutableListOf<Pokemon>()
-
                 val pokemonEntries = pokedex.pokemonEntries
                 _entriesLength.postValue(pokemonEntries.size - 1)
 
@@ -47,12 +54,11 @@ class PokeRepository(private val pokeClient: PokeApiClient) {
                     val specie = pokeClient.getPokemonSpecies(entry.pokemonSpecies.id)
                     for (variety in specie.varieties) {
                         val pokemon = pokeClient.getPokemon(variety.pokemon.id)
-                        pokemons.add(pokemon)
+                        pokemonsList.add(pokemon)
                     }
-
-                    _pokemons.postValue(pokemons)
                 }
             }
+            _pokemons.postValue(pokemonsList)
         }
     }
 

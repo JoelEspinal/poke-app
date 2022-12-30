@@ -37,6 +37,7 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var selectedPokemonsCount: TextView
     private lateinit var createTeamButton: FloatingActionButton
+    private lateinit var pokemonAdapter: PokemonAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,24 +97,32 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
         }
     }
 
+
+    var fromIndex = 0
     private fun initRecycleView(view: View) {
         context?.let { context ->
             val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_pokemons)
-            val adapter = PokemonAdapter(context, homeViewModel)
-            recyclerView.adapter = adapter
+            pokemonAdapter = PokemonAdapter(context, homeViewModel)
+            recyclerView.adapter = pokemonAdapter
             recyclerView.layoutManager = GridLayoutManager(activity, 2)
 
             activity?.let { activity ->
                 homeViewModel.pokemons.observe(activity) { pokemons ->
-                    adapter.submitList(pokemons)
+                    pokemonAdapter.submitList(pokemons)
                 }
             }
 
-            var fromIndex = 0
                swipeContainer.setOnRefreshListener {
                    selectedRegion?.let {
-                       fromIndex += 20
+                       fromIndex += 10
                        homeViewModel.getPokemonsByRegion(it.id, fromIndex)
+                       activity?.let { activity ->
+                           homeViewModel.pokemons.observe(activity) { pokemons ->
+                               pokemonAdapter.submitList(pokemons)
+                               pokemonAdapter.notifyDataSetChanged()
+                           }
+                       }
+
                    }
 
                    swipeContainer.isRefreshing = false

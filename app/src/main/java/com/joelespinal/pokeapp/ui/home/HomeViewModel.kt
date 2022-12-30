@@ -40,6 +40,7 @@ class HomeViewModel : ViewModel() {
 
         viewModelScope.launch {
             pokeRepository.pokemonsByRegion(regionId, fromIndex)
+
             _pokemons.postValue(pokeRepository.pokemons.value)
         }
     }
