@@ -40,19 +40,21 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
                 Glide.with(context)
                     .load(pokemon?.sprites?.frontDefault)
                     .into(pokemonImageView)
+
                 pokemonName.text = pokemon?.name
+                pokemonImageView.setBackgroundColor(R.color.teal_700)
 
                 card.setOnLongClickListener {
                     itemSelected = if (itemSelected) {
                         pokemon.let {
                             homeViewModel.deselectPokemon(it!!)
-                            pokemonImageView.setBackgroundColor(R.color.white)
+                            pokemonImageView.setBackgroundColor(R.color.teal_700)
                         }
                         false
                     } else {
                         pokemon.let{
                             homeViewModel.selectPokemon(it!!)
-                            pokemonImageView.setBackgroundColor(R.color.teal_700)
+                            pokemonImageView.setBackgroundColor(R.color.black)
                         }
                         true
                     }

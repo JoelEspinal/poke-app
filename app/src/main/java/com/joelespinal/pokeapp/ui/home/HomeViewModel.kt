@@ -40,8 +40,11 @@ class HomeViewModel : ViewModel() {
     }
 
     fun selectPokemon(pokemon : Pokemon) {
-        cachedPokemon.add(pokemon)
-        _selectedPokemoms.postValue(cachedPokemon)
+        val size = cachedPokemon.size
+        if (size <= 6) {
+            cachedPokemon.add(pokemon)
+            _selectedPokemoms.postValue(cachedPokemon)
+        }
     }
 
     fun deselectPokemon(pokemon : Pokemon) {
