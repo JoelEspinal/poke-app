@@ -52,10 +52,12 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
                         }
                         false
                     } else {
-                        pokemon.let{
-                            homeViewModel.selectPokemon(it!!)
-                            pokemonImageView.setBackgroundColor(R.color.black)
-                        }
+                       if ( homeViewModel.selectedPokemoms.value?.size!! < 6) {
+                           pokemon.let{
+                               homeViewModel.selectPokemon(it!!)
+                               pokemonImageView.setBackgroundColor(R.color.black)
+                           }
+                       }
                         true
                     }
 
