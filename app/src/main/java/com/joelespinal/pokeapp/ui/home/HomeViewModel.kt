@@ -18,13 +18,12 @@ class HomeViewModel : ViewModel() {
     private val _pokemons = MutableLiveData<List<Pokemon>>()
     val pokemons: LiveData<List<Pokemon>> = _pokemons
 
-     private val cachedPokemon = mutableListOf<Pokemon>()
+     private var cachedPokemon = mutableListOf<Pokemon>()
     private val _selectedPokemoms = MutableLiveData<List<Pokemon>>(cachedPokemon)
     val selectedPokemoms : LiveData<List<Pokemon>> = _selectedPokemoms
 
-    lateinit var selectedRegion: Region
-
-//    var currentTeam = Team(0, null, mutableListOf<Pokemon>())
+    private var selectedRegionId = 0
+    var currentTeam = Team(0, null, mutableListOf<Pokemon>())
 
     fun getRegionNames() {
         viewModelScope.launch {
@@ -33,6 +32,12 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getPokemonsByRegion(regionId: Int, fromIndex: Int) {
+        if (selectedRegionId != regionId) {
+            cachedPokemon = mutableListOf()
+            _selectedPokemoms.postValue(cachedPokemon)
+            selectedRegionId = regionId
+        }
+
         viewModelScope.launch {
             pokeRepository.pokemonsByRegion(regionId, fromIndex)
             _pokemons.postValue(pokeRepository.pokemons.value)

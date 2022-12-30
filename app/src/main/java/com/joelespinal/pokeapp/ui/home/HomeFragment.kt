@@ -130,7 +130,6 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
 
             selectedRegion = regionsLiveData.value?.get(index)
             selectedRegion?.let {
-                homeViewModel.selectedRegion = selectedRegion!!
                 selectedRegion?.id?.let { homeViewModel.getPokemonsByRegion(it, 0) }
             }
         }
