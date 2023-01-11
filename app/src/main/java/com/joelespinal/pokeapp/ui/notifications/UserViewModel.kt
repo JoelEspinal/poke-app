@@ -1,13 +1,10 @@
 package com.joelespinal.pokeapp.ui.notifications
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.joelespinal.pokeapp.repositories.UserRepository
 
-class NotificationsViewModel : ViewModel() {
+class UserViewModel : ViewModel() {
+    private val userRepository = UserRepository.getInstance()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+
 }
