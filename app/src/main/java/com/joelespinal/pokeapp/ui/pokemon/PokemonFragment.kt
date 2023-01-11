@@ -19,13 +19,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.joelespinal.pokeapp.R
 import com.joelespinal.pokeapp.adapters.PokemonAdapter
-import com.joelespinal.pokeapp.databinding.FragmentHomeBinding
+import com.joelespinal.pokeapp.databinding.FragmentPokemonBinding
 import me.sargunvohra.lib.pokekotlin.model.Region
 
 class PokemonFragment : Fragment(), OnItemSelectedListener {
 
     private var selectedRegion: Region? = null
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentPokemonBinding? = null
     private lateinit var homeViewModel: PokemonViewModel
 
     // This property is only valid between onCreateView and
@@ -48,7 +48,7 @@ class PokemonFragment : Fragment(), OnItemSelectedListener {
         homeViewModel =
             ViewModelProvider(this).get(PokemonViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPokemonBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         regionsLiveData = homeViewModel.regions

@@ -9,12 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.joelespinal.pokeapp.ui.pokemon.PokemonFragment"
         android:label="@string/title_pokemon"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_pokemon" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.joelespinal.pokeapp.ui.dashboard.DashboardFragment"
+        android:name="com.joelespinal.pokeapp.ui.teams.TeamsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_teams" />
 
 </navigation>

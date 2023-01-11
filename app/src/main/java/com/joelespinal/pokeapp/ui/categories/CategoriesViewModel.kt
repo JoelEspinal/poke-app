@@ -1,9 +1,9 @@
-package com.joelespinal.pokeapp.ui.notifications
+package com.joelespinal.pokeapp.ui.categories
 
 import androidx.lifecycle.ViewModel
 import com.joelespinal.pokeapp.repositories.UserRepository
 
-class UserViewModel : ViewModel() {
+class CategoriesViewModel : ViewModel() {
     private val userRepository = UserRepository.getInstance()
 
 
