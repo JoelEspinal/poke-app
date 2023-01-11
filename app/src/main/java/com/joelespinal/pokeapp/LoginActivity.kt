@@ -13,18 +13,21 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
+import com.joelespinal.pokeapp.repositories.UserRepository
 
 class LoginActivity : AppCompatActivity(){
 
-    private lateinit var googleLoginButton: Button;
-
+    private lateinit var googleLoginButton: Button
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private lateinit var authRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        authRepository = UserRepository.getInstance()!!
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -44,7 +47,7 @@ class LoginActivity : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        updateUI(currentUser)
+       updateUI(currentUser)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -67,11 +70,10 @@ class LoginActivity : AppCompatActivity(){
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null){
-            Toast.makeText(this, "UID: ${user.uid}", Toast.LENGTH_LONG).show();
-            val intent = Intent("com.joelespinal.pokeapp.LoginActivity");
+            authRepository.saveUid(user.uid)
+            val intent = Intent(this, PokeActivity::class.java);
             startActivity(intent)
         } else {
-            Toast.makeText(this, "UID: DONT FOUND", Toast.LENGTH_LONG).show();
             signIn()
         }
     }
