@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.joelespinal.pokeapp.R
-import com.joelespinal.pokeapp.ui.home.HomeViewModel
+import com.joelespinal.pokeapp.ui.pokemon.PokemonViewModel
 import me.sargunvohra.lib.pokekotlin.model.Pokemon
 
-    class PokemonAdapter(private val context: Context, private val homeViewModel: HomeViewModel) : ListAdapter<Pokemon, PokemonAdapter.PokemonViewHolder>(CATEGORY_COMPARATOR) {
+    class PokemonAdapter(private val context: Context, private val homeViewModel: PokemonViewModel) : ListAdapter<Pokemon, PokemonAdapter.PokemonViewHolder>(CATEGORY_COMPARATOR) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
             return PokemonViewHolder.create(parent, homeViewModel)
@@ -28,14 +27,14 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
 
         }
 
-        class PokemonViewHolder(itemView: View, pokmeonViewModel: HomeViewModel) :
+        class PokemonViewHolder(itemView: View, pokmeonViewModel: PokemonViewModel) :
             RecyclerView.ViewHolder(itemView) {
             private val pokemonImageView: ImageView = itemView.findViewById(R.id.pokemon_item_image)
             private val pokemonName: TextView = itemView.findViewById(R.id.pokemon_item_title)
             private val card: CardView = itemView.findViewById(R.id.card)
             private var itemSelected = false
 
-            fun bind(context: Context, pokemon: Pokemon?, homeViewModel: HomeViewModel) {
+            fun bind(context: Context, pokemon: Pokemon?, homeViewModel: PokemonViewModel) {
                 pokemonImageView.setImageResource(R.mipmap.ic_launcher_round)
                 Glide.with(context)
                     .load(pokemon?.sprites?.frontDefault)
@@ -68,7 +67,7 @@ import me.sargunvohra.lib.pokekotlin.model.Pokemon
             companion object {
                 fun create(
                     parent: ViewGroup,
-                    categoriesViewModel: HomeViewModel
+                    categoriesViewModel: PokemonViewModel
                 ): PokemonViewHolder {
                     val view: View = LayoutInflater.from(parent.context)
                         .inflate(R.layout.recycler_pokemon_item, parent, false)

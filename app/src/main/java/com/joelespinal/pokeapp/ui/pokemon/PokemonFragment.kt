@@ -1,4 +1,4 @@
-package com.joelespinal.pokeapp.ui.home
+package com.joelespinal.pokeapp.ui.pokemon
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,14 +20,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.joelespinal.pokeapp.R
 import com.joelespinal.pokeapp.adapters.PokemonAdapter
 import com.joelespinal.pokeapp.databinding.FragmentHomeBinding
-import me.sargunvohra.lib.pokekotlin.model.Pokemon
 import me.sargunvohra.lib.pokekotlin.model.Region
 
-class HomeFragment : Fragment(), OnItemSelectedListener {
+class PokemonFragment : Fragment(), OnItemSelectedListener {
 
     private var selectedRegion: Region? = null
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var homeViewModel: PokemonViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -47,7 +46,7 @@ class HomeFragment : Fragment(), OnItemSelectedListener {
         savedInstanceState: Bundle?
     ): View {
         homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(PokemonViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root

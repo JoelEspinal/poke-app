@@ -1,15 +1,13 @@
-package com.joelespinal.pokeapp.ui.home
+package com.joelespinal.pokeapp.ui.pokemon
 
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.joelespinal.pokeapp.PokeRepository
-import com.joelespinal.pokeapp.models.Team
 import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import me.sargunvohra.lib.pokekotlin.model.Pokemon
 import me.sargunvohra.lib.pokekotlin.model.Region
 
-class HomeViewModel : ViewModel() {
+class PokemonViewModel : ViewModel() {
     private val pokeRepository = PokeRepository(PokeApiClient())
 
     private val _regions = MutableLiveData<List<Region>>()
@@ -23,7 +21,7 @@ class HomeViewModel : ViewModel() {
     val selectedPokemoms : LiveData<List<Pokemon>> = _selectedPokemoms
 
     private var selectedRegionId = 0
-    var currentTeam = Team(0, null, mutableListOf<Pokemon>())
+//    var currentTeam = Team(0, null, mutableListOf<Pokemon>())
 
     fun getRegionNames() {
         viewModelScope.launch {

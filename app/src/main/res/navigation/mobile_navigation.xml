@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.joelespinal.pokeapp.ui.home.HomeFragment"
+        android:name="com.joelespinal.pokeapp.ui.pokemon.PokemonFragment"
         android:label="@string/title_pokemon"
         tools:layout="@layout/fragment_home" />
 
