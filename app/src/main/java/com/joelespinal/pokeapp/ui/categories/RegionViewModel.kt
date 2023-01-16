@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import me.sargunvohra.lib.pokekotlin.model.Region
 
-class CategoriesViewModel : ViewModel() {
+class RegionViewModel : ViewModel() {
     private val regionRepository = RegionRepository(PokeApiClient())
 
     private val _regions = MutableLiveData<List<Region>>()
