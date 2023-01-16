@@ -1,8 +1,10 @@
-package com.joelespinal.pokeapp
+package com.joelespinal.pokeapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.joelespinal.pokeapp.LoginActivity
+import com.joelespinal.pokeapp.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         runBlocking {
             launch {
                 delay(2000L)
-                val intent = Intent(applicationContext, com.joelespinal.pokeapp.LoginActivity::class.java);
+                val intent = Intent(applicationContext, LoginActivity::class.java);
                 startActivity(intent)
             }
         }
