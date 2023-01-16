@@ -99,7 +99,7 @@ class PokemonFragment : Fragment(), OnItemSelectedListener {
     var fromIndex = 0
     private fun initRecycleView(view: View) {
         context?.let { context ->
-            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_pokemons)
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_categories)
             pokemonAdapter = PokemonAdapter(context, homeViewModel)
             recyclerView.adapter = pokemonAdapter
             recyclerView.layoutManager = GridLayoutManager(activity, 2)
