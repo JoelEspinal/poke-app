@@ -52,7 +52,9 @@ class PokemonViewModel : ViewModel() {
     }
 
     fun deselectPokemon(pokemon : Pokemon) {
-        cachedPokemon.removeIf { pokemon.id == it.id }
+        if (cachedPokemon.contains(pokemon)) {
+            cachedPokemon.remove(pokemon)
+        }
         _selectedPokemoms.postValue(cachedPokemon)
     }
 }
