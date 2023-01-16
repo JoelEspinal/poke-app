@@ -10,9 +10,9 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_poke">PokeActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Pokemons</string>
     <string name="title_pokemon">Pokemons</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Teams</string>
     <string name="title_notifications">Notifications</string>
     <string name="regions">Regiones</string>
     <string name="pokemon_regions">Pokemons</string>
