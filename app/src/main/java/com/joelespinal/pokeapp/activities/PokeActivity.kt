@@ -1,4 +1,4 @@
-package com.joelespinal.pokeapp
+package com.joelespinal.pokeapp.activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.joelespinal.pokeapp.R
 import com.joelespinal.pokeapp.databinding.ActivityPokeBinding
 
 class PokeActivity : AppCompatActivity() {

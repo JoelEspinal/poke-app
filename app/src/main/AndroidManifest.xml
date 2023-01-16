@@ -22,7 +22,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PokeActivity"
+            android:name=".activities.PokeActivity"
             android:exported="false"
             android:label="@string/title_activity_poke">
             <meta-data
@@ -30,7 +30,7 @@
                 android:value="" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PokeActivity" />
+                android:value=".activities.PokeActivity" />
         </activity>
         <activity android:name=".activities.LoginActivity">
             <meta-data
