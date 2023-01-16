@@ -1,11 +1,10 @@
-package com.joelespinal.pokeapp
+package com.joelespinal.pokeapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,6 +12,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.joelespinal.pokeapp.PokeActivity
+import com.joelespinal.pokeapp.R
 import com.joelespinal.pokeapp.repositories.UserRepository
 
 class LoginActivity : AppCompatActivity(){
@@ -39,7 +40,7 @@ class LoginActivity : AppCompatActivity(){
 
         googleLoginButton = findViewById(R.id.google_login_button)
         googleLoginButton.setOnClickListener {
-            val intent = Intent(this, com.joelespinal.pokeapp.PokeActivity::class.java);
+            val intent = Intent(this, PokeActivity::class.java);
             startActivity(intent)
         }
     }

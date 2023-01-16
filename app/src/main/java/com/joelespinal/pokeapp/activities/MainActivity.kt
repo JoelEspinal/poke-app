@@ -3,7 +3,6 @@ package com.joelespinal.pokeapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.joelespinal.pokeapp.LoginActivity
 import com.joelespinal.pokeapp.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
