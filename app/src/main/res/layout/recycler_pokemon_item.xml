@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/pokemon_item_image"
+                android:id="@+id/category_item_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/pokemon_image_height"
                 android:contentDescription="@null"
@@ -31,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/pokemon_item_title"
+                android:id="@+id/category_item_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -41,7 +41,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_item_image"
+                app:layout_constraintTop_toBottomOf="@id/category_item_image"
                 tools:text="charmander" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
