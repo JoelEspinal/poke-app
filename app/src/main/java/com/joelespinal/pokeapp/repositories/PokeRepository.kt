@@ -1,4 +1,4 @@
-package com.joelespinal.pokeapp
+package com.joelespinal.pokeapp.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

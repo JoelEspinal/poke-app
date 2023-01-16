@@ -1,7 +1,7 @@
 package com.joelespinal.pokeapp.ui.pokemon
 
 import androidx.lifecycle.*
-import com.joelespinal.pokeapp.PokeRepository
+import com.joelespinal.pokeapp.repositories.PokeRepository
 import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import me.sargunvohra.lib.pokekotlin.model.Pokemon
