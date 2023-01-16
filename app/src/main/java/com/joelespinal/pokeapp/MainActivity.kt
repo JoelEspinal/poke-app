@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         runBlocking {
             launch {
                 delay(2000L)
-                val intent = Intent(applicationContext, LoginActivity::class.java);
+                val intent = Intent(applicationContext, com.joelespinal.pokeapp.LoginActivity::class.java);
                 startActivity(intent)
             }
         }
